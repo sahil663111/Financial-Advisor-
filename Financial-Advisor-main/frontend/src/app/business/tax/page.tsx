@@ -949,7 +949,7 @@ export default function TaxPage() {
                         </tr>
                       ) : (
                         rules.map((rule: any) => (
-                          <tr key={rule.id} className="hover:bg-slate-900/40">
+                          <tr key={rule.id || rule._id} className="hover:bg-slate-900/40">
                             <td className="py-3 px-4">
                               <span
                                 className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${

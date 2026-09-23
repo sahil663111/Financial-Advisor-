@@ -50,7 +50,7 @@ async def get_ledger(
     ledger_entries = []
     total_debits = 0.0
     total_credits = 0.0
-    running_balance = account["opening_balance"]
+    running_balance = account.get("opening_balance", 0.0)
 
     async for entry in cursor:
         for line in entry["lines"]:
@@ -79,7 +79,7 @@ async def get_ledger(
         "account_code": account["code"],
         "account_name": account["name"],
         "account_type": account["account_type"],
-        "opening_balance": account["opening_balance"],
+        "opening_balance": account.get("opening_balance", 0.0),
         "entries": ledger_entries,
         "closing_balance": running_balance,
         "total_debits": total_debits,

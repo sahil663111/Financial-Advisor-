@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:6.0
+    container_name: financial_advisor_mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=Financial_Advisor
+    restart: unless-stopped
+    networks:
+      - ai_financial_net
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: financial_advisor_backend
+    ports:
+      - "8000:8000"
+    environment:
+      # If running entirely locally in docker without MongoDB Atlas, uncomment below:
+      # - MONGODB_URI=mongodb://mongodb:27017/Financial_Advisor
+      - MONGODB_URI=${MONGODB_URI}
+      - LLM_API_KEY=${LLM_API_KEY}
+      - JWT_SECRET=${JWT_SECRET}
+    volumes:
+      - ./backend:/app
+    depends_on:
+      - mongodb
+    restart: unless-stopped
+    networks:
+      - ai_financial_net
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: financial_advisor_frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - ai_financial_net
+
+volumes:
+  mongo_data:
+
+networks:
+  ai_financial_net:
+    driver: bridge

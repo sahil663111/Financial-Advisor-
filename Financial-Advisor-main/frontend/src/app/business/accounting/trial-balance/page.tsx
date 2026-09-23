@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Fragment } from 'react';
 import { businessOrg as api, businessAccounting } from '@/lib/api';
 import { formatINR } from '@/lib/utils';
 import { CheckCircle, AlertCircle, RefreshCw, Download } from 'lucide-react';
@@ -202,9 +202,9 @@ export default function TrialBalancePage() {
             </thead>
             <tbody>
               {TYPE_ORDER.filter(t => grouped[t]).map(type => (
-                <>
+                <Fragment key={type}>
                   {/* Type group header */}
-                  <tr key={`hdr-${type}`} className="bg-slate-800/40">
+                  <tr className="bg-slate-800/40">
                     <td colSpan={5} className="py-2 px-4">
                       <span className={`text-xs font-bold uppercase tracking-wider ${TYPE_COLORS[type]}`}>
                         {type}
@@ -249,7 +249,7 @@ export default function TrialBalancePage() {
                       {subtotals[type]?.credit > 0 ? formatINR(subtotals[type].credit) : '—'}
                     </td>
                   </tr>
-                </>
+                </Fragment>
               ))}
 
               {/* Grand total */}

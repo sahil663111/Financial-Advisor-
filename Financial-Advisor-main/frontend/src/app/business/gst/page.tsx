@@ -30,7 +30,6 @@ export default function GSTPage() {
       api.getGSTSummary(orgId),
       api.getGSTMonthly(orgId, 6),
       api.getTaxCalendar(orgId, 3),
-      api.getComplianceCalendar(orgId),
     ]).then(([s, m, c]: any[]) => {
       setSummary(s);
       setMonthly(m || []);

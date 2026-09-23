@@ -147,9 +147,11 @@ async def send_message(
 
                 # Provide result back to Gemini
                 response = chat.send_message(
-                    genai.types.Part.from_function_response(
-                        name=fn_name,
-                        response={"result": tool_res}
+                    genai.protos.Part(
+                        function_response=genai.protos.FunctionResponse(
+                            name=fn_name,
+                            response={"result": json.dumps(tool_res, default=str)[:3000]}
+                        )
                     )
                 )
 

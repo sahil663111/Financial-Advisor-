@@ -60,8 +60,8 @@ async def list_tax_rules(
     db=Depends(get_db),
 ):
     """List configured tax rules (GST rates, TDS sections, thresholds)."""
-    return await rules_engine.list_tax_rules(
-        ctx.org_id, db, tax_type=tax_type, active_only=active_only
+    return await rules_engine.list_rules(
+        ctx.org_id, db, tax_type=tax_type, is_active=active_only
     )
 
 
@@ -73,7 +73,7 @@ async def create_tax_rule(
     db=Depends(get_db),
 ):
     """Create a new versioned tax rule."""
-    return await rules_engine.create_tax_rule(ctx.org_id, data, ctx.user_id, db)
+    return await rules_engine.create_rule(ctx.org_id, data, db)
 
 
 @router.put("/organizations/{org_id}/tax/rules/{rule_id}")
@@ -85,7 +85,12 @@ async def update_tax_rule(
     db=Depends(get_db),
 ):
     """Update an existing tax rule."""
-    return await rules_engine.update_tax_rule(ctx.org_id, rule_id, data, ctx.user_id, db)
+    return await rules_engine.update_rule(
+        ctx.org_id,
+        rule_id,
+        data.model_dump(exclude_none=True),
+        db,
+    )
 
 
 @router.delete("/organizations/{org_id}/tax/rules/{rule_id}")
@@ -96,7 +101,8 @@ async def deactivate_tax_rule(
     db=Depends(get_db),
 ):
     """Deactivate a tax rule."""
-    return await rules_engine.deactivate_tax_rule(ctx.org_id, rule_id, ctx.user_id, db)
+    await rules_engine.deactivate_rule(ctx.org_id, rule_id, db)
+    return {"message": "Tax rule deactivated"}
 
 
 @router.post("/organizations/{org_id}/tax/rules/seed-defaults")
