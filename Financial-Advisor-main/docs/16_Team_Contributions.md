@@ -6,9 +6,9 @@ The **AI Financial OS** is a massive full-stack application serving two distinct
 
 ## 🏗️ PART 1: INDIVIDUAL SECTION (B2C)
 
-This section focuses on personal finance management, wealth tracking, and individual AI advisory. It is equally managed by **Sahil** and **Kedar N**.
+This section focuses on personal finance management, wealth tracking, and individual AI advisory. It is equally managed by **Om** and **Kedar N**.
 
-### 1. Sahil — Individual Core Operations & Wealth Tracking
+### 1. Om — Individual Core Operations & Wealth Tracking
 **Focus**: User authentication, onboarding, daily income/expense tracking, and investment portfolio management.
 
 **Contributions**:
@@ -57,9 +57,9 @@ This section focuses on personal finance management, wealth tracking, and indivi
 
 ## 🏢 PART 2: BUSINESS SECTION (B2B)
 
-This section acts as a comprehensive enterprise resource planning (ERP) tool, featuring double-entry accounting, payroll, and compliance. It is equally managed by **Om** and **Kedar P**.
+This section acts as a comprehensive enterprise resource planning (ERP) tool, featuring double-entry accounting, payroll, and compliance. It is equally managed by **Sahil** and **Kedar P**.
 
-### 3. Om — Business Accounting, Sales, & HR Operations
+### 3. Sahil — Business Accounting, Sales, & HR Operations
 **Focus**: Core ledger systems, invoicing (Order-to-Cash), bills (Procure-to-Pay), and automated payroll runs.
 
 **Contributions**:
