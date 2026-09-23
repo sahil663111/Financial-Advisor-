@@ -10,7 +10,7 @@ def _balance_delta(account_type: str, debit: float, credit: float) -> float:
     return round(credit - debit, 2)
 
 async def fix_account_balances():
-    db = AsyncIOMotorClient('mongodb+srv://pvrcenimas1_db_user:Kedarn%402006@cluster0.px6svoh.mongodb.net/?appName=Cluster0')['Financial_Advisor']
+    db = AsyncIOMotorClient('')['Financial_Advisor']
     
     org = await db.organizations.find_one({"type": "BUSINESS"})
     if not org:
