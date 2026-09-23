@@ -23,6 +23,7 @@
 | 13 | [13_Deployment_and_DevOps.md](./13_Deployment_and_DevOps.md) | Docker, docker-compose, environment config, CI/CD |
 | 14 | [14_API_Reference.md](./14_API_Reference.md) | Complete REST API endpoint catalogue |
 | 15 | [15_Diagrams.md](./15_Diagrams.md) | Architecture, data-flow, and entity-relationship diagrams |
+| 16 | [16_Team_Contributions.md](./16_Team_Contributions.md) | Equal division of work among the four core developers |
 
 ---
 
