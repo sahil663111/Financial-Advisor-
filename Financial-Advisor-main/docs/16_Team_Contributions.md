@@ -1,105 +1,105 @@
 # 16 — Team Contributions
 
-This document outlines the equal division of work among the four core developers of the **AI Financial OS** project. The massive full-stack architecture has been logically partitioned so that each contributor owns end-to-end delivery (Frontend + Backend + Database Schema) of their respective modules.
+The **AI Financial OS** is a massive full-stack application serving two distinct user personas: **Individuals** and **Businesses**. To ensure equal contribution, the project was divided into two main sections (Individual and Business), with two developers taking full ownership (Frontend + Backend + Database) of their respective halves.
 
 ---
 
-## 1. Sahil — Core Architecture, Auth & Analytics
-**Role**: Lead Architect & Analytics Engineer
-**Focus**: System foundations, authentication, multi-tenant RBAC, and complex financial reporting.
+## 🏗️ PART 1: INDIVIDUAL SECTION (B2C)
 
-### Key Contributions:
-* **Core Foundation**: Set up the Next.js frontend and FastAPI backend architectures, including database connection pooling and the SlowAPI rate limiter.
-* **Authentication & RBAC**: Implemented the JWT dual-token system (access + refresh) and the dependency-injected Role-Based Access Control (`OrgContext`).
-* **Financial Reporting Engine**: Built the deterministic algorithms for the Profit & Loss statement, Balance Sheet, and Financial Health Score, along with CSV/PDF exports.
-* **Dashboards**: Created the primary business dashboard integrating Recharts for real-time financial tracking.
+This section focuses on personal finance management, wealth tracking, and individual AI advisory. It is equally managed by **Sahil** and **Kedar N**.
 
-### Code Ownership (Notable Files):
+### 1. Sahil — Individual Core Operations & Wealth Tracking
+**Focus**: User authentication, onboarding, daily income/expense tracking, and investment portfolio management.
+
+**Contributions**:
+* Set up the global Next.js layout and FastAPI authentication (JWT) for individual users.
+* Built the personal dashboard aggregating real-time metrics.
+* Implemented the Income and Expense tracking services with CRUD operations.
+* Developed the Investment Portfolio tracker supporting stocks, mutual funds, and automated ROI calculations.
+
+**Files & Code Ownership**:
 * **Backend**:
-  * [`backend/app/main.py`](../../backend/app/main.py)
-  * [`backend/app/config.py`](../../backend/app/config.py)
-  * [`backend/app/database.py`](../../backend/app/database.py)
-  * [`backend/app/auth/router.py`](../../backend/app/auth/router.py)
-  * [`backend/app/business/rbac/dependencies.py`](../../backend/app/business/rbac/dependencies.py)
-  * [`backend/app/business/finance/statements_service.py`](../../backend/app/business/finance/statements_service.py)
+  * [`backend/app/auth/router.py`](../../backend/app/auth/router.py) (User Registration & Login)
+  * [`backend/app/individual/dashboard/router.py`](../../backend/app/individual/dashboard/router.py)
+  * [`backend/app/individual/income/router.py`](../../backend/app/individual/income/router.py)
+  * [`backend/app/individual/expenses/router.py`](../../backend/app/individual/expenses/router.py)
+  * [`backend/app/individual/investments/router.py`](../../backend/app/individual/investments/router.py)
 * **Frontend**:
-  * [`frontend/src/contexts/AuthContext.tsx`](../../frontend/src/contexts/AuthContext.tsx)
-  * [`frontend/src/lib/api.ts`](../../frontend/src/lib/api.ts) (Base Axios client & interceptors)
-  * [`frontend/src/app/business/dashboard/page.tsx`](../../frontend/src/app/business/dashboard/page.tsx)
-  * [`frontend/src/app/business/reports/page.tsx`](../../frontend/src/app/business/reports/page.tsx)
+  * [`frontend/src/app/login/page.tsx`](../../frontend/src/app/login/page.tsx)
+  * [`frontend/src/app/individual/layout.tsx`](../../frontend/src/app/individual/layout.tsx)
+  * [`frontend/src/app/individual/dashboard/page.tsx`](../../frontend/src/app/individual/dashboard/page.tsx)
+  * [`frontend/src/app/individual/income/page.tsx`](../../frontend/src/app/individual/income/page.tsx)
+  * [`frontend/src/app/individual/investments/portfolio/page.tsx`](../../frontend/src/app/individual/investments/portfolio/page.tsx)
 
----
+### 2. Kedar N — Individual Advanced Intelligence & Planning
+**Focus**: Personal AI advisory, tax planning, credit health, and long-term retirement simulations.
 
-## 2. Kedar N — AI & Machine Learning Engine
-**Role**: Lead AI/ML Engineer
-**Focus**: Integration of Google Gemini, Virtual CFO function calling, and all classical machine learning models.
+**Contributions**:
+* Built the Individual AI Advisor using Google Gemini to provide personalized financial insights.
+* Programmed the FY 2024-25 Dual-Regime Tax Calculator.
+* Created the ML-based Credit Health Scorer evaluating personal risk profiles.
+* Implemented the Monte Carlo simulation engine for the Retirement Planner.
 
-### Key Contributions:
-* **Virtual CFO**: Built the conversational AI agent using Gemini's function calling to interface with the financial database.
-* **ML Pipelines**: Developed the anomaly detection algorithm for expenses (Z-score based), the credit health scorer, and the linear-trend cash flow forecaster.
-* **Automated Insights**: Wrote the background async scheduler that pre-computes daily executive summaries.
-* **OCR Integration**: Implemented the Gemini Vision API for automatic receipt scanning and data extraction.
-
-### Code Ownership (Notable Files):
+**Files & Code Ownership**:
 * **Backend**:
-  * [`backend/app/business/ai/router.py`](../../backend/app/business/ai/router.py)
-  * [`backend/app/business/ai/tools.py`](../../backend/app/business/ai/tools.py)
-  * [`backend/app/business/ai/scheduler.py`](../../backend/app/business/ai/scheduler.py)
-  * [`backend/app/business/ml/forecasting_service.py`](../../backend/app/business/ml/forecasting_service.py)
-  * [`backend/app/business/ml/anomaly_service.py`](../../backend/app/business/ml/anomaly_service.py)
-  * [`backend/app/business/ml/credit_risk_service.py`](../../backend/app/business/ml/credit_risk_service.py)
+  * [`backend/app/individual/ai/router.py`](../../backend/app/individual/ai/router.py)
+  * [`backend/app/individual/ai/tools/financial_tools.py`](../../backend/app/individual/ai/tools/financial_tools.py)
+  * [`backend/app/individual/tax/engine/fy_2024_25.py`](../../backend/app/individual/tax/engine/fy_2024_25.py)
+  * [`backend/app/individual/retirement/simulator.py`](../../backend/app/individual/retirement/simulator.py)
+  * [`backend/app/ml/credit_model/scorer.py`](../../backend/app/ml/credit_model/scorer.py)
 * **Frontend**:
-  * [`frontend/src/app/business/ai-cfo/page.tsx`](../../frontend/src/app/business/ai-cfo/page.tsx)
   * [`frontend/src/app/individual/ai-advisor/page.tsx`](../../frontend/src/app/individual/ai-advisor/page.tsx)
-  * [`frontend/src/app/business/intelligence/page.tsx`](../../frontend/src/app/business/intelligence/page.tsx)
+  * [`frontend/src/app/individual/tax/page.tsx`](../../frontend/src/app/individual/tax/page.tsx)
+  * [`frontend/src/app/individual/retirement/page.tsx`](../../frontend/src/app/individual/retirement/page.tsx)
+  * [`frontend/src/app/individual/credit/page.tsx`](../../frontend/src/app/individual/credit/page.tsx)
 
 ---
 
-## 3. Om — Business Accounting & Operations
-**Role**: Lead Accounting Systems Engineer
-**Focus**: Double-entry ledger, Sales (O2C), Payables (P2P), and Payroll operations.
+## 🏢 PART 2: BUSINESS SECTION (B2B)
 
-### Key Contributions:
-* **Double-Entry Engine**: Implemented the core accounting engine enforcing the fundamental accounting equation (Assets = Liabilities + Equity) across all journal entries.
-* **Sales & Invoicing**: Built the order-to-cash lifecycle including customer management, invoice generation, payment allocation, and accounts receivable aging.
-* **Payables**: Managed vendor profiles and bill payments.
-* **Payroll Processing**: Automated the CTC breakdown (Basic, HRA, PF) and monthly salary disbursement journal entries.
+This section acts as a comprehensive enterprise resource planning (ERP) tool, featuring double-entry accounting, payroll, and compliance. It is equally managed by **Om** and **Kedar P**.
 
-### Code Ownership (Notable Files):
+### 3. Om — Business Accounting, Sales, & HR Operations
+**Focus**: Core ledger systems, invoicing (Order-to-Cash), bills (Procure-to-Pay), and automated payroll runs.
+
+**Contributions**:
+* Designed the strict double-entry ledger algorithm enforcing the Assets = Liabilities + Equity rule.
+* Developed the end-to-end sales module (Customers, Invoicing, Receivables aging).
+* Built the accounts payable system for managing vendors and bills.
+* Created the Payroll engine that automatically computes CTC breakdowns and logs salary expenses.
+
+**Files & Code Ownership**:
 * **Backend**:
   * [`backend/app/business/accounting/journal_service.py`](../../backend/app/business/accounting/journal_service.py)
   * [`backend/app/business/accounting/ledger_service.py`](../../backend/app/business/accounting/ledger_service.py)
   * [`backend/app/business/sales/invoices_service.py`](../../backend/app/business/sales/invoices_service.py)
   * [`backend/app/business/sales/payments_service.py`](../../backend/app/business/sales/payments_service.py)
   * [`backend/app/business/payroll/payroll_service.py`](../../backend/app/business/payroll/payroll_service.py)
-  * [`backend/scripts/fix_balances.py`](../../backend/scripts/fix_balances.py)
 * **Frontend**:
   * [`frontend/src/app/business/accounting/journal/page.tsx`](../../frontend/src/app/business/accounting/journal/page.tsx)
   * [`frontend/src/app/business/invoices/page.tsx`](../../frontend/src/app/business/invoices/page.tsx)
   * [`frontend/src/app/business/receivables/page.tsx`](../../frontend/src/app/business/receivables/page.tsx)
   * [`frontend/src/app/business/payroll/page.tsx`](../../frontend/src/app/business/payroll/page.tsx)
 
----
+### 4. Kedar P — Business Intelligence, Compliance, & Reporting
+**Focus**: Virtual CFO AI, ML forecasting, automated tax compliance (GST/TDS), and financial statement generation.
 
-## 4. Kedar P — Individual Module & Tax Compliance
-**Role**: Lead Personal Finance & Compliance Engineer
-**Focus**: The entire B2C (Individual) application suite and the complex Indian tax compliance engines (GST & TDS).
+**Contributions**:
+* Built the automated GST and TDS computational rules engine, dynamically tracking tax liabilities.
+* Developed the Business AI Virtual CFO using Gemini function calling on real accounting data.
+* Implemented ML pipelines for expense anomaly detection and linear-trend cash flow forecasting.
+* Programmed the algorithms that generate the official P&L, Balance Sheet, and Cash Flow statements.
 
-### Key Contributions:
-* **Individual Application**: Built the standalone personal finance tracker, including income/expense logging, goal tracking, and retirement Monte Carlo simulations.
-* **Tax Engines (Business & Individual)**: Programmed the FY 2024-25 dual-regime tax calculator for individuals, and the automated GST/TDS computational rules engine for businesses.
-* **Investment Portfolio**: Created the asset tracker supporting Indian equities and mutual funds with CAGR/XIRR returns.
-* **Tax Dashboard**: Designed the frontend interfaces tracking GSTR-1, GSTR-3B, and TDS filing deadlines.
-
-### Code Ownership (Notable Files):
+**Files & Code Ownership**:
 * **Backend**:
-  * [`backend/app/individual/tax/engine/fy_2024_25.py`](../../backend/app/individual/tax/engine/fy_2024_25.py)
-  * [`backend/app/individual/retirement/simulator.py`](../../backend/app/individual/retirement/simulator.py)
   * [`backend/app/business/tax/gst_service.py`](../../backend/app/business/tax/gst_service.py)
   * [`backend/app/business/tax/tds_service.py`](../../backend/app/business/tax/tds_service.py)
-  * [`backend/app/business/tax/rules_engine.py`](../../backend/app/business/tax/rules_engine.py)
+  * [`backend/app/business/finance/statements_service.py`](../../backend/app/business/finance/statements_service.py)
+  * [`backend/app/business/ai/scheduler.py`](../../backend/app/business/ai/scheduler.py)
+  * [`backend/app/business/ml/forecasting_service.py`](../../backend/app/business/ml/forecasting_service.py)
 * **Frontend**:
-  * [`frontend/src/app/individual/layout.tsx`](../../frontend/src/app/individual/layout.tsx)
-  * [`frontend/src/app/individual/dashboard/page.tsx`](../../frontend/src/app/individual/dashboard/page.tsx)
   * [`frontend/src/app/business/tax/page.tsx`](../../frontend/src/app/business/tax/page.tsx)
   * [`frontend/src/app/business/gst/page.tsx`](../../frontend/src/app/business/gst/page.tsx)
+  * [`frontend/src/app/business/ai-cfo/page.tsx`](../../frontend/src/app/business/ai-cfo/page.tsx)
+  * [`frontend/src/app/business/reports/page.tsx`](../../frontend/src/app/business/reports/page.tsx)
+  * [`frontend/src/app/business/dashboard/page.tsx`](../../frontend/src/app/business/dashboard/page.tsx) (Executive AI & Metric integration)

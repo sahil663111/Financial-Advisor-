@@ -27,11 +27,13 @@ async def generate_and_save_executive_summary(org_id: str, db):
     
     model = genai.GenerativeModel(model_name=settings.LLM_MODEL)
     try:
-        response = model.generate_content(prompt)
+        # Use async method to prevent blocking the event loop
+        response = await model.generate_content_async(prompt)
         raw_text = response.text.replace("```json", "").replace("```", "").strip()
         parsed = json.loads(raw_text)
-    except Exception:
-        parsed = {"insights": [], "risks": ["Failed to parse AI insights"], "recommended_actions": []}
+    except Exception as e:
+        print(f"AI Summary generation error: {e}")
+        parsed = {"insights": [], "risks": [f"Failed to generate AI insights: {e}"], "recommended_actions": []}
 
     doc = {
         "org_id": org_id,
@@ -53,7 +55,11 @@ async def generate_and_save_executive_summary(org_id: str, db):
 async def start_ai_summary_scheduler(db):
     """
     Background task that loops forever, running once every 24 hours.
+    Sleeps on startup so it doesn't immediately consume free-tier API quotas.
     """
+    # Wait 24 hours before first background run to save API quota for interactive use
+    await asyncio.sleep(86400)
+    
     while True:
         try:
             # Get all business organizations
@@ -66,7 +72,7 @@ async def start_ai_summary_scheduler(db):
                     print(f"[Scheduler] Failed to generate summary for {org_id}: {e}")
                 
                 # Small delay to prevent rate limiting
-                await asyncio.sleep(2)
+                await asyncio.sleep(5)
         except Exception as e:
             print(f"[Scheduler] Error in outer loop: {e}")
         
